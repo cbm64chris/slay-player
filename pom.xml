@@ -105,10 +105,19 @@
             <version>${javafx.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>11.0.0-RC2</version>
-            <type>jar</type>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>settings</artifactId>
+            <version>4.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>storage</artifactId>
+            <version>4.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>util</artifactId>
+            <version>4.0.10</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
