@@ -2,21 +2,19 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="stackPane" prefHeight="1792.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fluffyluffs.slayplayer.controller.SlayPlayerController">
+<StackPane fx:id="stackPane" prefHeight="812.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fluffyluffs.slayplayer.controller.SlayPlayerController">
    <children>
       <AnchorPane fx:id="playerPane">
          <children>
-            <VBox prefHeight="1113.0" prefWidth="808.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox prefHeight="1113.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ListView fx:id="stations" prefHeight="1131.0" prefWidth="808.0" />
                   <AnchorPane VBox.vgrow="ALWAYS">
                      <children>
-                        <ImageView fx:id="musicArt" fitHeight="566.0" fitWidth="764.0" layoutX="22.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0" />
+                        <ListView fx:id="stations" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </children>

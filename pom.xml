@@ -8,10 +8,10 @@
     <name>SlayPlayer</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.version>11</maven.compiler.version>
+        <maven.compiler.version>17</maven.compiler.version>
         <mainClass>com.fluffyluffs.slayplayer.SlayPlayer</mainClass>
         <moduleName>SlayPlayer</moduleName>
-        <javafx.version>[11,12)</javafx.version>
+        <javafx.version>[20,)</javafx.version>
     </properties>
     <developers>
         <developer>
@@ -23,7 +23,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.11.0</version>
                 <configuration>
                     <release>${maven.compiler.version}</release>
                 </configuration>
@@ -31,7 +31,7 @@
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.4</version>
+                <version>0.0.8</version>
                 <configuration>
                     <mainClass>${mainClass}</mainClass>
                     <options>
@@ -122,12 +122,12 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.14.0</version>
+            <version>2.20.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
+            <version>4.13.2</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.hamcrest</groupId>
