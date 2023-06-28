@@ -1,66 +1,88 @@
+/*
+ * Copyright Oracle America, Inc. 2023 All rights reserved.
+ */
+
 package com.fluffyluffs.slayplayer.controller.station;
 
-import java.net.URL;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
-/** Station */
-public class Station {
+/** Stations */
+public enum Station {
+  ABSOLUTE_EIGHTIES(
+      "Absolute 80s",
+      "http://edge-bauerall-01-gos2.sharp-stream.com/absolute80s.mp3?aw_0_1st.skey=1687423077&aw_0_1st.playerid=BMUK_RPi",
+      "absolute80s") {
+    @Override
+    public void setStation() {
+      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
-  private final String stationName;
-  private final URL stationURL;
-  private final String image;
-  private MediaPlayer mediaPlayer = null;
+    @Override
+    public StationInstance getStationInstance() {
+      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+  },
+  SLAY_RADIO(
+      "Slay Radio",
+      "https://www.slayradio.org/tune_in.php/128kbps/slayradio.128.m3u",
+      "slay_radio") {
+    @Override
+    public void setStation() {
+      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
-  public Station(String stationName, URL stationURL, String image) {
-    this.stationName = stationName;
-    this.stationURL = stationURL;
-    this.image = image;
+    @Override
+    public StationInstance getStationInstance() {
+      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+  },
+  SMOOTH_CHILL("Smooth Chill", "http://icecast.thisisdax.com/SmoothChillMP3", "smooth_chill") {
+    @Override
+    public void setStation() {
+      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public StationInstance getStationInstance() {
+      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+  },
+  CAPITAL_CHILL(
+      "Capital Chill", "http://media-ice.musicradio.com/CapitalChillMP3", "capital_chill") {
+    @Override
+    public void setStation() {
+      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public StationInstance getStationInstance() {
+      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+  };
+
+  private final String name;
+  private final String url;
+  private final String img;
+
+  private Station(String name, String url, String img) {
+    this.name = name;
+    this.url = url;
+    this.img = img;
   }
 
-  public String getStationName() {
-
-    return stationName;
+  public String getName() {
+    return name;
   }
 
-  public URL getStationURL() {
-
-    return stationURL;
+  public String getUrl() {
+    return url;
   }
 
-  public Image getImage() {
-
-    return new Image(Station.class.getResourceAsStream("/images/" + this.image + ".png"));
+  public Image getImg() {
+    return new Image(StationInstance.class.getResourceAsStream("/images/" + this.img + ".png"));
   }
-
-  /**
-   * Create the Media Player
-   *
-   * @return {@link MediaPlayer}
-   */
-  public MediaPlayer startMedia() {
-    mediaPlayer = new MediaPlayer(new Media(stationURL.toExternalForm()));
-    mediaPlayer.setAutoPlay(true);
-
-    return mediaPlayer;
-  }
-
-  /**
-   * Get the Media Player, may be null
-   *
-   * @return {@link MediaPlayer}
-   */
-  public MediaPlayer getMediaPlayer() {
-
-    return mediaPlayer;
-  }
-
-  /** Destroys the Media Player */
-  public void stopMedia() {
-    mediaPlayer.dispose();
-    mediaPlayer = null;
-  }
+  
+  public abstract void setStation();
+  
+  public abstract StationInstance getStationInstance();
 }

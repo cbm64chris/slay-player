@@ -1,8 +1,8 @@
 package com.fluffyluffs.slayplayer.controller;
 
-import com.fluffyluffs.slayplayer.controller.station.Station;
+import com.fluffyluffs.slayplayer.controller.station.StationInstance;
 import com.fluffyluffs.slayplayer.controller.station.StationListCell;
-import com.fluffyluffs.slayplayer.controller.station.Stations;
+import com.fluffyluffs.slayplayer.controller.station.Station;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Comparator;
@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,7 +38,6 @@ public class SlayPlayerController implements Initializable {
   @FXML private ListView<Station> stations;
 
   /** Initializes the controller class. */
-  @Override
   public void initialize(URL url, ResourceBundle rb) {
 
     stations.setCellFactory((ListView<Station> p) -> new StationListCell());
@@ -45,42 +45,56 @@ public class SlayPlayerController implements Initializable {
     stations
         .getItems()
         .addAll(
-            Stream.of(Stations.values())
-                .map(this::createStation)
-                .sorted(Comparator.comparing(Station::getStationName))
-                .collect(Collectors.toList()));
+            Stream.of(Station.values())
+                .sorted(Comparator.comparing(Station::getName))
+                .collect(Collectors.toSet()));
+
     stations
         .getSelectionModel()
         .selectedItemProperty()
         .addListener(
-            (ObservableValue<? extends Station> ov, Station t, Station t1) -> {
-              Optional.ofNullable(t)
-                  .ifPresent(
-                      c -> {
-                        pauseStation(t);
-//                        t.setNowPlaying("");
-                      });
+            new ChangeListener<Station>() {
+              @Override
+              public void changed(
+                  ObservableValue<? extends Station> ov,
+                  Station currentStation,
+                  Station newStation) {
+                Optional.ofNullable(currentStation)
+                    .ifPresent(
+                        station -> {
+                          // destroy
+                        });
 
-              playStation(t1);
+                try {
 
-//              scheduler.scheduleWithFixedDelay(
-//                  () -> updateNowPlaying(t1), 500, 1000, TimeUnit.MILLISECONDS);
+                  playStation(new StationInstance(new URL(newStation.getUrl())));
+
+                } catch (MalformedURLException ex) {
+                  throw new RuntimeException(ex.getLocalizedMessage(), ex);
+                }
+              }
             });
+
+    //    stations
+    //        .getSelectionModel()
+    //        .selectedItemProperty()
+    //        .addListener(
+    //            (ObservableValue<? extends StationInstance> ov,
+    //                StationInstance t,
+    //                StationInstance t1) -> {
+    //              Optional.ofNullable(t)
+    //                  .ifPresent(
+    //                      c -> {
+    //                        stopStation(t);
+    //                      });
+    //
+    //              playStation(t1);
+    //            });
   }
 
-//  private void updateNowPlaying(Station station) {
-//    Platform.runLater(
-//        () ->
-//            nowPlaying.setValue(
-//                new ReadMetaData()
-//                    .setUrl(station.getStationURL().toExternalForm())
-//                    .parseMetaData()
-//                    .getMetaData()));
-//  }
-
-  private Station createStation(Stations station) {
+  private StationInstance createStation(Station station) {
     try {
-      return new Station(station.getName(), new URL(station.getUrl()), station.getImg());
+      return new StationInstance(station.getName(), new URL(station.getUrl()), station.getImg());
 
     } catch (MalformedURLException ex) {
       LOG.always().log(ex.getMessage());
@@ -89,7 +103,7 @@ public class SlayPlayerController implements Initializable {
     return null;
   }
 
-  private void playStation(Station station) {
+  private void playStation(StationInstance station) {
     MediaPlayer mediaPlayer = station.startMedia();
 
     switch (mediaPlayer.getStatus()) {
@@ -102,15 +116,15 @@ public class SlayPlayerController implements Initializable {
     }
   }
 
-  private void pauseStation(Station station) {
+  private void pauseStation(StationInstance station) {
     Optional.ofNullable(station)
-        .map(Station::getMediaPlayer)
+        .map(StationInstance::getMediaPlayer)
         .filter(player -> player.getStatus().equals(MediaPlayer.Status.PLAYING))
         .orElseThrow(() -> new IllegalStateException("There was no Media Player"))
         .stop();
   }
 
-  private void stopStation(Station station) {
-    Optional.ofNullable(station).ifPresent(Station::stopMedia);
+  private void stopStation(StationInstance station) {
+    Optional.ofNullable(station).ifPresent(StationInstance::stopMedia);
   }
 }

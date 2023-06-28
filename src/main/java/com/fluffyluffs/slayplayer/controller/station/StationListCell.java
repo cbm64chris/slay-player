@@ -18,9 +18,18 @@ public class StationListCell extends ListCell<Station> {
     if (empty) {
       setGraphic(null);
     } else {
-//      setText(station.getNowPlaying());
 
-      ImageView img = new ImageView(station.getImage());
+//      station
+//          .getNowPlaying()
+//          .addListener(
+//              new ChangeListener<String>() {
+//                @Override
+//                public void changed(ObservableValue<? extends String> ov, String t, String t1) {
+//                  Platform.runLater(() -> setText(t1));
+//                }
+//              });
+
+      ImageView img = new ImageView(station.getImg());
       img.setFitHeight(100d);
       img.setFitWidth(100d);
 
